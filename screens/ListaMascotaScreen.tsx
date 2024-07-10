@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Card from '../components/Card'
+////FIREBASE
+import { onValue, ref } from 'firebase/database'
+import { db } from '../config/Config'
 
 
 export default function ListaMascotaScreen() {
@@ -41,10 +44,23 @@ export default function ListaMascotaScreen() {
     ]
 
     useEffect(() => {
-        setlista(listaQuemada)
+        //setlista(listaQuemada)
+        leerMascota()
     }, [])
 
+    function leerMascota (){
+        const starCountRef = ref(db, 'mascotas/');
+        onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            console.log(data)
 
+            //TRANSFORMAR
+            const listaTemporal : any = Object.keys(data).map((id)=>( {id, ...data[id] } ) )
+            //console.log(listaTemporal);
+            
+            setlista(listaTemporal)
+        });
+    }
 
     return (
         <View>
