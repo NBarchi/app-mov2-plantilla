@@ -22,36 +22,27 @@ export default function LoginScreen({ navigation }: any) {
         // ...
       })
       .catch((error) => {
+        console.log(error.code);
+    
         const errorCode = error.code;
         const errorMessage = error.message;
-
-        let titulo="";
-        let mensaje="";
-
-        switch(errorCode){
-          case 'auth/invalid-email':
-            titulo='Correo Invalido'
-            mensaje = "Email Incorrecto"
-            break
-          case 'auth/user-not-found':
-            titulo = "Error de usuario"
-            mensaje = "El usuario no se encuentra registrado"
-            break
-          case 'auth/wrong-password':
-            titulo = "Error de contraseña"
-            mensaje = "La contraseña es incorrecta"
-            break
-          case 'auth/invalid-credential':
-            titulo = "Error de credenciales"
-            mensaje = "Revisar credenciales"
-            break
-        }
-
-        console.log(errorCode);
-        console.log(errorMessage);
-        Alert.alert(titulo, mensaje)
-      
+        switch (errorCode) {
+          case "auth/invalid/credential":
+            Alert.alert("Error", "Las credenciales son incorrectas");
+            break;
+          case "auth/missing-password":
+            Alert.alert("Error", "Falta contraseña");
+            break;
+          case "auth/invalid-email":
+            Alert.alert("Error", "Ingrese un correo valido");
+            break;
+          default:
+            Alert.alert("Error", "Contactenos");
+            break;
+      }
       });
+
+
   }
 
   return (
@@ -61,11 +52,13 @@ export default function LoginScreen({ navigation }: any) {
       <TextInput
         placeholder='Ingresa tu correo electrónico'
         onChangeText={(texto) => (setCorreo(texto))}
+        value={correo}
         keyboardType='email-address'
         style={styles.input}
       />
       <TextInput
         placeholder='Ingresa contraseña'
+        value={contrasenia}
         onChangeText={(texto) => (setContrasenia(texto))}
         style={styles.input}
       />

@@ -18,23 +18,25 @@ export default function RegistroScreen({ navigation }: any) {
           navigation.navigate("Login")
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-
-          let titulo=""
-          let mensaje=""
-
-          switch(errorCode){
-            case 'auth/invalid-email':
-                titulo='Error Email'
-                mensaje='Email Invalido'
-          }
-          // ..
-          console.log(errorCode);
-
-          Alert.alert(titulo, mensaje)
-          
-          
+            const errorCode = error.code;
+            const errorMessage = error.message;
+      
+            console.log(errorCode);
+            switch (errorCode) {
+              case "auth/invalid/credential":
+                Alert.alert("Error", "Las Credenciales son Incorrectas");
+                break;
+              case "auth/missing-password":
+                Alert.alert("Error", "Ingrese la contraseña");
+                break;
+              case "auth/missing-email":
+                Alert.alert("Error", "Ingrese el Correo");
+                break;
+              default:
+                Alert.alert(errorCode, errorMessage);
+                console.error(error);
+                break;
+            }
         });
     }
 

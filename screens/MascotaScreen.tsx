@@ -1,6 +1,6 @@
 import { Button, StyleSheet, Text, View, Alert } from 'react-native';
 import React, { useState } from 'react'
-import { TextInput } from 'react-native-gesture-handler'
+import { ScrollView, TextInput } from 'react-native-gesture-handler'
 ///// FIREBASE
 import { onValue, ref, remove, set, update } from 'firebase/database'
 import { db } from '../config/Config'
@@ -57,7 +57,8 @@ export default function MascotaScreen() {
 
 
     return (
-        <View>
+        <ScrollView>
+        <View style={styles.container}>
             {/*------------------ GUARDAR -------------------------- */}
             <View style={styles.guardar}>
                 <Text style={styles.tiulos}>GUARDAR</Text>
@@ -85,7 +86,7 @@ export default function MascotaScreen() {
                 <Button title='Guardar' onPress={()=>guardarMascota()}/>
             </View>
 
-            <View style={styles.separador} />
+            
 
             {/*------------------ EDITAR-------------------------- */}
             <View style={styles.editar}>
@@ -120,7 +121,7 @@ export default function MascotaScreen() {
                 <Button title='Editar' color={'green'} onPress={()=>editarMascota()}/>
             </View>
 
-            <View style={styles.separador} />
+           
 
             {/*------------------ ELIMINAR------------------------- */}
             <View style={styles.eliminar}>
@@ -135,18 +136,23 @@ export default function MascotaScreen() {
                 <Button title='ELIMINAR' color={'red'} onPress={()=>eliminarMascota()}/>
             </View>
 
-            <View style={styles.separador} />
+            
 
         </View>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
-    separador: {
-        borderWidth: 1,
-        width: '90%',
-        alignItems:'center'
-    },
+
+    container:{
+        flex: 1,
+        justifyContent:'center',
+        alignItems:'center',
+        gap:30,
+        marginTop:20
+    }, 
+
     tiulos: {
         fontSize: 25
     },
@@ -156,22 +162,36 @@ const styles = StyleSheet.create({
         
     },
     guardar: {
-        backgroundColor: '#a1c5f7',
+        width:'90%',
+        padding:10,
+        backgroundColor: 'whitesmoke',
         justifyContent: 'center',
-        borderRadius: 30,
-        alignItems:'center'
+        borderRadius: 10,
+        borderWidth:1,
+        alignItems:'center',
+        gap:10
     },
     editar: {
-        backgroundColor: '#b5f7a1',
+        width:'90%',
+        padding:10,
+        backgroundColor: 'whitesmoke',
         justifyContent: 'center',
-        borderRadius: 30,
-        alignItems:'center'
+        borderRadius: 10,
+        borderWidth:1,
+        alignItems:'center',
+        gap:10
+        
     },
     eliminar: {
-        backgroundColor: '#f7a1a1',
+        width:'90%',
+        padding:10,
+        backgroundColor: 'whitesmoke',
         justifyContent: 'center',
-        borderRadius: 30,
-        alignItems:'center'
+        borderRadius: 10,
+        borderWidth:1,
+        alignItems:'center',
+        marginBottom:40,
+        gap:10
     },
     txt: {
         width: '70%',
